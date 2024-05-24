@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPlayer = '○';
     let playerX = '';
     let playerO = '';
-    let clearColor = 'red';
+    let clearColor = 'black';
     const moves = { '○': [], '✕': [] };
 
     function startGame() {
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cells[index] === null) {
             if (moves[currentPlayer].length === 3) {
                 const oldMoveIndex = moves[currentPlayer][0];
-                document.querySelector(`.cell[data-index='${oldMoveIndex}']`).classList.remove('next-to-clear', 'red', 'black');
+                document.querySelector(`.cell[data-index='${oldMoveIndex}']`).classList.remove('next-to-clear', 'red');
             }
 
             event.target.textContent = currentPlayer;
@@ -79,7 +79,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (moves[currentPlayer].length === 3) {
                 const nextToClearIndex = moves[currentPlayer][0];
-                document.querySelector(`.cell[data-index='${nextToClearIndex}']`).classList.add('next-to-clear', clearColor);
+                if (clearColor === 'red') {
+                    document.querySelector(`.cell[data-index='${nextToClearIndex}']`).classList.add('next-to-clear', 'red');
+                }
             }
 
             if (checkWin(currentPlayer)) {
@@ -112,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentPlayer = '○';
         document.querySelectorAll('.cell').forEach(cell => {
             cell.textContent = '';
-            cell.classList.remove('next-to-clear', 'red', 'black');
+            cell.classList.remove('next-to-clear', 'red');
         });
         setupElement.classList.remove('hidden');
         gameElement.classList.add('hidden');
